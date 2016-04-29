@@ -1,0 +1,478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+    <META content="IE=5.0000" http-equiv="X-UA-Compatible">
+    <TITLE>中国商标网网上申请</TITLE>
+    <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <BASE
+            href="http://sbsq.saic.gov.cn:9080/tmoas/">
+    <META content=no-cache http-equiv=pragma>
+    <META content=no-cache http-equiv=cache-control>
+    <META content=0 http-equiv=expires>
+    <META content=keyword1,keyword2,keyword3 http-equiv=keywords>
+    <META content="This is my page" http-equiv=description>
+    <LINK rel=stylesheet
+          type=text/css href="css/newpublic2.css">
+    <SCRIPT type=text/javascript src="/tmoas/style/js/jquery-1.4.4.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript
+            src="/tmoas/style/js/autocomplete/jquery.autocomplete2.js"></SCRIPT>
+    <LINK rel=stylesheet type=text/css
+          href="/tmoas/style/css/jquery.autocomplete2.css">
+    <SCRIPT type=text/javascript charset=UTF-8
+            src="/tmoas/style/js/prometValidator2.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript charset=UTF-8
+            src="/tmoas/style/js/formValidator-4.0.1.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript charset=UTF-8
+            src="/tmoas/style/js/formValidatorRegex.js"></SCRIPT>
+    <LINK rel=stylesheet type=text/css
+          href="style/ztrees/css/zTreeStyle/zTreeStyle.css">
+    <SCRIPT type=text/javascript src="style/ztrees/js/jquery-1.4.4.min.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript
+            src="style/ztrees/js/jquery.ztree.core-3.5.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript
+            src="style/ztrees/js/jquery.ztree.excheck-3.5.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript
+            src="style/ztrees/js/jquery.ztree.exedit-3.5.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript>
+        //
+        $(function () {
+            $.post("/tmoas/wssqsy_safeLogin.xhtml", function (data) {
+                if ("false" == data) {
+                    location.href = "/tmoas/login.jsp";
+                }
+
+            });
+        })
+
+        function show_meaage() {
+            $.messager.show({
+                title: '系统消息',
+                msg: '您有系统消息，点击左上角的<img src="temp/video/huhu-message.gif" width="46" style="cursor: hand;" onclick="open_message_win()" height="28">(有未接受消息)<img src="temp/video/info-green.png" style="cursor: hand;" width="46" onclick="open_message_win()" height="28">(查看历史消息)可查看',
+                timeout: 30000,
+                height: 100,
+                width: 250,
+                showType: 'show'
+            });
+        }
+    </SCRIPT>
+</HEAD>
+<BODY style="CURSOR: auto" onload=open_message();init_message(); topMargin=0
+      MARGINHEIGHT="0" MARGINWIDTH="0" windowc_onresizez="true">
+<TABLE class=banner border=0 cellSpacing=0 cellPadding=0 width="100%"
+       align=center>
+    <TBODY>
+    <TR>
+        <TD class=background_01>&nbsp;</TD>
+        <TD class=background_02>&nbsp;</TD>
+        <TD class=background_03>&nbsp;</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<TABLE class=leader border=0 cellSpacing=0 cellPadding=0 width="100%"
+       align=center>
+    <TBODY>
+    <TR>
+        <TD class=background_01>&nbsp;</TD>
+        <TD class=background_02>
+            <TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+                <TBODY>
+                <TR>
+                    <TD width="5%">
+                        &nbsp;
+                        <IMG style="DISPLAY: none; CURSOR: hand"
+                             id=show_message onclick=open_message_win()
+                             src="temp/video/huhu-message.gif" width=46 height=28>
+                        <IMG
+                                style="CURSOR: hand" id=close_message onclick=open_message_win()
+                                src="temp/video/info-green.png" width=46 height=28></TD>
+                    <TD width="25%">
+                        当前位置：网上申请&nbsp;&nbsp;&nbsp;
+                        <A
+                                href="javascript:location.href='/tmoas/login.jsp'">返回首页</A>
+                    </TD>
+                    <TD width="45%">
+                        <FONT style="FONT-SIZE: 14px">
+                            欢迎&nbsp;&nbsp;
+                            <FONT
+                                    color=red>南京知果网络科技有限公司</FONT>
+                            &nbsp;&nbsp;使用网上申请系统
+                        </FONT>
+                    </TD>
+                    <TD width="3%" align=right>
+                        <IMG src="images/leader_righticon.jpg"
+                             width=28 height=29></TD>
+                    <TD style="PADDING-RIGHT: 10px" width="8%" align=right>
+                        <A
+                                style="COLOR: red"
+                                href="javascript:location.href='/tmoas/wssqsy_backWs.xhtml'">退出网上申请</A>
+                    </TD>
+                </TR>
+                </TBODY>
+            </TABLE>
+        </TD>
+        <TD class=background_03>&nbsp;</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<TABLE class=leader_under border=0 cellSpacing=0 cellPadding=0 width="100%"
+       align=center>
+    <TBODY>
+    <TR>
+        <TD class=background_01>&nbsp;</TD>
+        <TD class=background_02>&nbsp;</TD>
+        <TD class=background_03>&nbsp;</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<TABLE class=import border=0 cellSpacing=0 cellPadding=0 width="100%"
+       align=center>
+    <TBODY>
+    <TR>
+        <TD class=background_01>&nbsp;</TD>
+        <TD class=background_02>
+            <TABLE class=import_m border=0 cellSpacing=0 cellPadding=0 width="100%"
+                   align=center>
+                <TBODY>
+                <TR>
+                    <TD class=background_01>&nbsp;</TD>
+                    <TD vAlign=top>
+                        <BASE href="http://sbsq.saic.gov.cn:9080/tmoas/">
+                        <META content=no-cache http-equiv=pragma>
+                        <META content=no-cache http-equiv=cache-control>
+                        <META content=0 http-equiv=expires>
+                        <META content=keyword1,keyword2,keyword3 http-equiv=keywords>
+                        <META content="This is my page" http-equiv=description>
+                        <LINK
+                                rel=stylesheet type=text/css href="css/newpublic2.css">
+                        <LINK
+                                rel=stylesheet type=text/css
+                                href="style/ztrees/css/zTreeStyle/zTreeStyle.css">
+                        <SCRIPT type=text/javascript
+                                src="style/ztrees/js/jquery-1.4.4.min.js"></SCRIPT>
+
+                        <SCRIPT type=text/javascript
+                                src="style/ztrees/js/jquery.ztree.core-3.5.js"></SCRIPT>
+
+                        <SCRIPT type=text/javascript
+                                src="style/ztrees/js/jquery.ztree.excheck-3.5.js"></SCRIPT>
+
+                        <SCRIPT type=text/javascript
+                                src="style/ztrees/js/jquery.ztree.exedit-3.5.js"></SCRIPT>
+
+                        <SCRIPT type=text/javascript>
+                            function openIframe(url) {
+                                var ifm = parent.document.getElementById("iframe");
+                                ifm.src = "/tmoas" + url;
+                            }
+
+                            var setting = {
+                                check: {
+                                    enable: false
+                                },
+                                view: {
+                                    showLine: true,
+                                    nameIsHTML: true,
+                                    showTitle: false
+                                    //fontCss:{size:"200px"}
+                                },
+                                edit: {
+                                    drag: {
+                                        isMove: true,
+                                        prev: true,
+                                        next: true,
+                                        inner: false
+                                    },
+                                    enable: true,
+                                    showRemoveBtn: false,
+                                    showRenameBtn: false
+
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true
+                                    }
+                                }
+                            };
+                            $(document).ready(function () {
+                                var nodes = [];
+                                var roleId = $("#roleId").val();
+                                $.ajax({
+                                    url: 'wssqsy_getMenuByRole.xhtml', //url  action是方法的名称
+                                    data: {"roleId": roleId},//传入的参数
+                                    type: 'POST',
+                                    dataType: "json", //可以是text，如果用text，返回的结果为字符串；如果需要json格式的，可是设置为json
+                                    ContentType: "application/json; charset=utf-8",
+                                    success: function (data) {//要做权限分配时,在这里再加一个ajax事件求得当前角色已经的到的权限通过循环判断是否已经选中
+                                        for (var i = 0; i < data.length; i++) {
+                                            var datas = data[i];
+                                            var n;
+                                            if (datas.powerLevel == 0) {
+                                                n = {
+                                                    id: datas.id,
+                                                    pId: datas.powerPid,
+                                                    name: "<font style='font-weight: bold;'>" + datas.powerName + "</font>",
+                                                    open: true,
+                                                    iconOpen: "style/ztrees/css/zTreeStyle/img/diy/1_open.png",
+                                                    iconClose: "style/ztrees/css/zTreeStyle/img/diy/1_close.png"
+                                                };
+                                            } else {
+                                                if (datas.powerType == 0) {
+                                                    n = {
+                                                        id: datas.id,
+                                                        pId: datas.powerPid,
+                                                        name: "<font color='blue'>" + datas.powerName + "</font>",
+                                                        click: "openIframe('" + datas.powerPath + "')",
+                                                        icon: "style/ztrees/css/zTreeStyle/img/diy/2.png"
+                                                    };
+                                                } else {
+
+                                                    n = {
+                                                        id: datas.id,
+                                                        pId: datas.powerPid,
+                                                        name: "<font style='font-weight:normal'>" + datas.powerName + "</font>"
+                                                    };
+                                                }
+                                            }
+                                            nodes.push(n);
+                                        }
+                                        $.fn.zTree.init($("#treeDemo"), setting, nodes);
+                                    },
+                                    error: function (msg) {
+                                        alert("获取菜单失败");
+                                    }
+                                });
+                            });
+
+                            /**
+                             * 打开关闭节点(对父节点操作)
+                             */
+                            function parent_open() {
+                                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                                var nodes = zTree.getSelectedNodes(true);
+                                if (nodes.length > 0) {
+                                    if (nodes.open == false) {
+                                        zTree.expandNode(nodes, true, false, false, false);
+                                    } else {
+                                        zTree.expandNode(nodes, false, false, false, false);
+                                    }
+                                }
+                            }
+                            var ipNum = 0;
+                            function getIp() {
+                                $.post("/tmoas/isApp_getServiceIp.xhtml", function (data) {
+                                    ipNum++;
+                                    if (data == 'false') {
+                                        $('#ipid').html('获取ip失败');
+                                    } else {
+                                        $('#ipid').html("第" + ipNum + "次获取：<font color='red' size='4'>" + data + "</font>");
+                                    }
+                                });
+                            }
+
+                            function open_v() {
+                                document.getElementById("embed_video").play();
+                            }
+                            function close_v() {
+                                document.getElementById("embed_video").stop();
+                            }
+
+                            /**
+                             * 判断是否有新消息
+                             */
+                            function open_message() {
+
+                            }
+
+                            /**
+                             * 打开消息框
+                             */
+                            function open_message_win() {
+                                var browserIs = window.navigator.userAgent.toUpperCase();//(MSIE)ie11不行
+                                if (!!window.ActiveXObject || "ActiveXObject" in window || browserIs.indexOf('MSIE') > -1) {
+                                    document.getElementById("embed_video").stop();
+                                }
+                                $('#show_message').css('display', 'none');
+                                $('#close_message').css('display', '');
+                                window.open("/tmoas/wssqsy_getMessage.xhtml", 'message', 'resizable=no,scrollbars=no,width=410,height=410,left=200,top=50');
+                            }
+
+                            var entryTime = new Date();
+                            function init_message() {
+                                var nowTime = new Date();
+                                var senconds = Math.floor((nowTime.getTime() - entryTime.getTime()) / 1000);
+                                var num_m = parseInt($('#message_num').val());
+                                if (senconds % (num_m * 60) == 0) {
+                                    open_message();
+                                }
+                                setTimeout("init_message()", 1000);
+                            }
+
+                            function load_advice() {
+                                alert('请代理机构或事务所特别注意：\n\n1、申请成功之后请仔细核实代理委托书和主体资格证明文件是否和当前所申请的商标匹配\n2、在“我的申请”中，核对“查看”中的商标图片和pdf下载件中的图片是否一致');
+                            }
+                        </SCRIPT>
+
+                        <TABLE class=import_mx border=0 cellSpacing=0 cellPadding=0
+                               width="100%">
+                            <TBODY>
+                            <TR>
+                                <TD class=layer_01>
+                                    <DIV
+                                            style="BORDER-BOTTOM: pink 2px solid; BORDER-LEFT: pink 2px solid; OVERFLOW-X: auto; WIDTH: 220px; BORDER-TOP: pink 2px solid; BORDER-RIGHT: pink 2px solid">
+                                        <UL style="MozUserSelect: -moz-none" id=treeDemo class=ztree
+                                            jQuery1461736724601="2">
+                                            <LI hideFocus id=treeDemo_1 class=level0 tabIndex=0
+                                                treenode>
+																<SPAN id=treeDemo_1_switch
+                                                                      class="button level0 switch root_open" title=""
+                                                                      treeNode_switch></SPAN>
+                                                <A id=treeDemo_1_a class=level0
+                                                   onclick="" target=_blank treeNode_a>
+																	<SPAN
+                                                                            style="BACKGROUND: url(style/ztrees/css/zTreeStyle/img/diy/1_open.png) no-repeat 0px 0px"
+                                                                            id=treeDemo_1_ico class="button ico_open"
+                                                                            title=""
+                                                                            treeNode_ico></SPAN>
+																	<SPAN id=treeDemo_1_span>
+																		<FONT
+                                                                                style="FONT-WEIGHT: bold">商标网上申请系统</FONT>
+																	</SPAN>
+                                                </A>
+                                                <UL style="DISPLAY: block" id=treeDemo_1_ul
+                                                    class="level0 ">
+                                                    <LI hideFocus id=treeDemo_2 class=level1
+                                                        tabIndex=0 treenode>
+																		<SPAN id=treeDemo_2_switch
+                                                                              class="button level1 switch center_open"
+                                                                              title=""
+                                                                              treeNode_switch></SPAN>
+                                                        <A id=treeDemo_2_a class=level1
+                                                           onclick="" target=_blank treeNode_a>
+																			<SPAN
+                                                                                    id=treeDemo_2_ico
+                                                                                    class="button ico_open" title=""
+                                                                                    treeNode_ico></SPAN>
+																			<SPAN id=treeDemo_2_span>
+																				<FONT
+                                                                                        style="FONT-WEIGHT: normal">国内申请</FONT>
+																			</SPAN>
+                                                        </A>
+                                                        <UL style="OVERFLOW: hidden" id=treeDemo_2_ul
+                                                            class="level1 line" jQuery1461736724601="3">
+                                                            <LI hideFocus id=treeDemo_3 class=level2 tabIndex=0
+                                                                treenode>
+																				<SPAN id=treeDemo_3_switch
+                                                                                      class="button level2 switch bottom_docu"
+                                                                                      title=""
+                                                                                      treeNode_switch></SPAN>
+                                                                <A id=treeDemo_3_a
+                                                                   class="level2 curSelectedNode"
+                                                                   onclick="openIframe('/sbzcsq_getSbzcMain.xhtml')"
+                                                                   target=_blank treeNode_a>
+																					<SPAN
+                                                                                            style="BACKGROUND: url(style/ztrees/css/zTreeStyle/img/diy/2.png) no-repeat 0px 0px"
+                                                                                            id=treeDemo_3_ico
+                                                                                            class="button ico_docu"
+                                                                                            title=""
+                                                                                            treeNode_ico></SPAN>
+																					<SPAN id=treeDemo_3_span>
+																						<FONT
+                                                                                                color=blue>注册申请</FONT>
+																					</SPAN>
+                                                                </A>
+                                                            </LI>
+                                                        </UL>
+                                                    </LI>
+                                                    <LI hideFocus id=treeDemo_4 class=level1 tabIndex=0
+                                                        treenode>
+																		<SPAN id=treeDemo_4_switch
+                                                                              class="button level1 switch bottom_close"
+                                                                              title=""
+                                                                              treeNode_switch></SPAN>
+                                                        <A id=treeDemo_4_a class=level1
+                                                           onclick="" target=_blank treeNode_a>
+																			<SPAN
+                                                                                    id=treeDemo_4_ico
+                                                                                    class="button ico_close" title=""
+                                                                                    treeNode_ico></SPAN>
+																			<SPAN id=treeDemo_4_span>
+																				<FONT
+                                                                                        style="FONT-WEIGHT: normal">我的账户</FONT>
+																			</SPAN>
+                                                        </A>
+                                                    </LI>
+                                                </UL>
+                                            </LI>
+                                        </UL>
+                                        <INPUT
+                                                id=roleId value=1 type=hidden name=roleId>
+                                        <BR>
+                                        <BR>
+                                        <BR></DIV>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD style="WIDTH: 220px" class=layer_01>&nbsp;</TD>
+                            </TR>
+                            <TR>
+                                <TD style="WIDTH: 220px" class=layer_01>&nbsp;</TD>
+                            </TR>
+                            <TR style="DISPLAY: none">
+                                <TD style="WIDTH: 220px" class=layer_01>
+                                    <INPUT onclick=getIp() value=获取ip type=button>
+                                    <INPUT onclick=open_v() value=开始 type=button>
+                                    <INPUT onclick=close_v() value=结束 type=button>
+                                    <DIV id=ipid></DIV>
+                                    <DIV style="DISPLAY: none" id=vedioDiv>
+                                        <INPUT id=message_num
+                                               value=60 type=hidden>
+                                        <EMBED id=embed_video height=20
+                                               type=audio/mpeg hidden=true width=100
+                                               src=temp/video/message.mp3 volume="0" loop="true"
+                                               autoplay="false" controller="true" autostart="false"></EMBED>
+                                    </DIV>
+                                </TD>
+                            </TR>
+                            </TBODY>
+                        </TABLE>
+                    </TD>
+                    <TD class=layer_02 height=1235 vAlign=top width=820
+                        align=left>
+                        <IFRAME id=iframe height="100%"
+                                src="/tmoas/sbzcsq_getSbzcMain.xhtml"
+                                width="100%"></IFRAME>
+                    </TD>
+                    <TD class=background_03>&nbsp;</TD>
+                </TR>
+                </TBODY>
+            </TABLE>
+        </TD>
+        <TD class=background_03>&nbsp;</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<TABLE class=copyright border=0 cellSpacing=0 cellPadding=0 width="100%"
+       align=center>
+    <TBODY>
+    <TR>
+        <TD class=background_01>&nbsp;</TD>
+        <TD class=background_02>&nbsp;</TD>
+        <TD class=background_03>&nbsp;</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<DIV style="POSITION: absolute; TOP: -1970px; LEFT: -1970px" id=_my97DP>
+    <IFRAME
+            style="WIDTH: 180px; HEIGHT: 199px" border=0
+            src="/tmoas/style/My97DatePicker/My97DatePicker.htm" frameBorder=0
+            scrolling=no></IFRAME>
+</DIV>
+</BODY>
+</HTML>

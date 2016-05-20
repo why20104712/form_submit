@@ -1,11 +1,14 @@
 package cn.why.controller;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.cookie.Cookie;
@@ -80,11 +83,15 @@ public class ZggLoginTest {
         CookieStore cookieStore = ((AbstractHttpClient) httpclient).getCookieStore();
         List<Cookie> cookies = ((AbstractHttpClient) httpclient)
                 .getCookieStore().getCookies();
-        for (Cookie cookie : cookies) {
-            System.out.println("***cookie begin***");
-            System.out.println(cookie);
-            System.out.println("***cookie end***");
-        }
+//        for (Cookie cookie : cookies) {
+//            System.out.println("***cookie begin***");
+//            System.out.println(cookie);
+//            System.out.println("***cookie end***");
+//        }
+
+
+        Header[] allHeaders = response.getAllHeaders();
+        System.out.println(ReflectionToStringBuilder.toString(allHeaders));
 
         httppost.releaseConnection();
 

@@ -247,6 +247,8 @@ public class HttpClietDemo {
             HttpPost httppost = new HttpPost("http://localhost:8080/uploadController/upload");
 
             FileBody bin = new FileBody(new File("E:" + File.separator + "demo" + File.separator + "248906-106.jpg"));
+//            FileBody bin = new FileBody(new File("http://101.200.142.161//base/getfile/download/501469?uid=zgg"));
+
 //            FileBody bin = new FileBody(new File("E:" + File.separator + "demo" + File.separator + "output.txt"));
             FileEntity fileEntity = new FileEntity(bin.getFile());
             StringBody comment = new StringBody("A binary file of some kind", ContentType.TEXT_PLAIN);

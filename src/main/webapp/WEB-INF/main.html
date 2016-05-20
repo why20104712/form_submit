@@ -1989,10 +1989,13 @@
                             <TBODY>
                             <TR>
                                 <TD class=bg_01 width="30%">申请人类型：
-                                    <INPUT id=ispost value=no   type=hidden name=ispost>
+                                    <INPUT id=ispost value=no type=hidden name=ispost>
                                 </TD>
                                 <TD class=bg_02 width="40%">
-                                    <SELECT style="VISIBILITY: visible"  id=appTypeId class=s02  onchange=opetate_sqType(2);opetate_appGjdq_sqType(2,1)       size=1  name=tmzcr.appTypeId   jQuery1461736730619="4"      validatorIndex="8"        validatorGroup="1" onceValided="true">
+                                    <SELECT style="VISIBILITY: visible" id=appTypeId class=s02
+                                            onchange=opetate_sqType(2);opetate_appGjdq_sqType(2,1) size=1
+                                            name=tmzcr.appTypeId jQuery1461736730619="4" validatorIndex="8"
+                                            validatorGroup="1" onceValided="true">
                                         <OPTION
                                                 value=-1>－－请选择－－
                                         </OPTION>
@@ -2002,8 +2005,8 @@
                                         <OPTION
                                                 value=100012000000000002>自然人
                                         </OPTION>
-                                </SELECT>
-                                    <SPAN      style="COLOR: #f00">*</SPAN></TD>
+                                    </SELECT>
+                                    <SPAN style="COLOR: #f00">*</SPAN></TD>
                                 <TD class=bg_02 width="30%">
                                     <DIV style="WIDTH: 250px" id=appTypeIdTip
                                          class=onCorrect>请选择申请人类型
@@ -2014,32 +2017,32 @@
                                 <TD class=bg_01>书式类型：</TD>
                                 <TD class=bg_02>
                                     <SELECT style="VISIBILITY: visible" id=appGjdq
-                                                        class=s02
-                                                        onchange=opetate_appGjdq(2);opetate_appGjdq_2(2);opetate_appGjdq_sqType(2,2)
-                                                        size=1
-                                                        name=tmzcr.appGjdq
-                                                        jQuery1461736730619="5"
-                                                        validatorIndex="7"
-                                                        validatorGroup="1" onceValided="true">
-                                    <OPTION
-                                            value=-1>－－请选择－－
-                                    </OPTION>
-                                    <OPTION selected
-                                            value=100011000000000001>中国大陆
-                                    </OPTION>
-                                    <OPTION
-                                            value=100011000000000002>国外
-                                    </OPTION>
-                                    <OPTION
-                                            value=100011000000000003>中国台湾
-                                    </OPTION>
-                                    <OPTION
-                                            value=100011000000000004>中国香港
-                                    </OPTION>
-                                    <OPTION
-                                            value=100011000000000005>中国澳门
-                                    </OPTION>
-                                </SELECT> <SPAN
+                                            class=s02
+                                            onchange=opetate_appGjdq(2);opetate_appGjdq_2(2);opetate_appGjdq_sqType(2,2)
+                                            size=1
+                                            name=tmzcr.appGjdq
+                                            jQuery1461736730619="5"
+                                            validatorIndex="7"
+                                            validatorGroup="1" onceValided="true">
+                                        <OPTION
+                                                value=-1>－－请选择－－
+                                        </OPTION>
+                                        <OPTION selected
+                                                value=100011000000000001>中国大陆
+                                        </OPTION>
+                                        <OPTION
+                                                value=100011000000000002>国外
+                                        </OPTION>
+                                        <OPTION
+                                                value=100011000000000003>中国台湾
+                                        </OPTION>
+                                        <OPTION
+                                                value=100011000000000004>中国香港
+                                        </OPTION>
+                                        <OPTION
+                                                value=100011000000000005>中国澳门
+                                        </OPTION>
+                                    </SELECT> <SPAN
                                         style="COLOR: #f00">*</SPAN>
                                     <DIV id=gjdqdiv>&nbsp;</DIV>
                                 </TD>
@@ -2085,33 +2088,34 @@
                                            onceValided="true"
                                            lastshowclass="onCorrect" lastshowmsg="输入内容为空"
                                            validValueOld>
-                                    <INPUT     id=appAgentUnion value="2016-4-27 14:00:34" size=40 type=hidden    name=tmzcr.appAgentUnion>
+                                    <INPUT id=appAgentUnion value="2016-4-27 14:00:34" size=40 type=hidden
+                                           name=tmzcr.appAgentUnion>
                                 </TD>
                                 <TD class=bg_02 width="30%">
-                                    <DIV style="WIDTH: 250px" id=agentFilenumTip     class=onCorrect>填写了就必须输入正确 </DIV>
+                                    <DIV style="WIDTH: 250px" id=agentFilenumTip class=onCorrect>填写了就必须输入正确</DIV>
                                 </TD>
                             </TR>
                             <TR>
                                 <TD class=bg_01>代理组织名称：</TD>
                                 <TD class=bg_02>
                                     <INPUT id=agentId1 value=南京知果网络科技有限公司 readOnly
-                                                       size=40 name=tmzcr.agentId jQuery1461736730619="8"
-                                                       validatorIndex="5" validatorGroup="1" onceValided="true">
+                                           size=40 name=tmzcr.agentId jQuery1461736730619="8"
+                                           validatorIndex="5" validatorGroup="1" onceValided="true">
                                 </TD>
                                 <TD class=bg_02>
-                                    <DIV style="WIDTH: 250px" id=agentId1Tip   class=onCorrect>代理用户，本项不可改动  </DIV>
+                                    <DIV style="WIDTH: 250px" id=agentId1Tip class=onCorrect>代理用户，本项不可改动</DIV>
                                 </TD>
                             </TR>
                             <TR>
                                 <TD class=bg_01 width="30%">代理人姓名：</TD>
                                 <TD class=bg_02 width="40%">
                                     <INPUT id=agentPerson value=1111111
-                                                                   size=40 name=tmzcr.agentPerson
-                                                                   jQuery1461736730619="7"
-                                                                   validatorIndex="3" validatorGroup="1"
-                                                                   onceValided="true"
-                                                                   lastshowclass="onFocus" lastshowmsg="此为代理机构填写"
-                                                                   validValueOld>
+                                           size=40 name=tmzcr.agentPerson
+                                           jQuery1461736730619="7"
+                                           validatorIndex="3" validatorGroup="1"
+                                           onceValided="true"
+                                           lastshowclass="onFocus" lastshowmsg="此为代理机构填写"
+                                           validValueOld>
                                 </TD>
                                 <TD class=bg_02 width="30%">
                                     <DIV style="WIDTH: 250px" id=agentPersonTip class=onCorrect>请如实填写</DIV>
@@ -2123,36 +2127,37 @@
                                     <INPUT class=button1
                                            onclick="load_file('/tmoas/tmoas/WSSQ/SBZCSQ/fileWtWindow.jsp','代理委托书上传')"
                                            value=选择文件 type=button><BR>&nbsp;&nbsp;
-                                    <INPUT          id=fileWtName readOnly size=40 name=fileWtName
-                                            jQuery1461736730619="9" validatorIndex="6" validatorGroup="1"
-                                            onceValided="true" lastshowclass="onError" lastshowmsg="不能为空"
-                                            validValueOld> <SPAN style="COLOR: #f00">*</SPAN> <BR>
-                                    <INPUT     id=fileWtId size=40 type=hidden name=fileWtId>
+                                    <INPUT id=fileWtName readOnly size=40 name=fileWtName
+                                           jQuery1461736730619="9" validatorIndex="6" validatorGroup="1"
+                                           onceValided="true" lastshowclass="onError" lastshowmsg="不能为空"
+                                           validValueOld> <SPAN style="COLOR: #f00">*</SPAN> <BR>
+                                    <INPUT id=fileWtId size=40 type=hidden name=fileWtId>
                                 </TD>
                                 <TD class=bg_02>
-                                    <DIV style="WIDTH: 250px" id=fileWtNameTip          class=onError>不能为空               </DIV>
+                                    <DIV style="WIDTH: 250px" id=fileWtNameTip class=onError>不能为空</DIV>
                                 </TD>
                             </TR>
                             <TR>
                                 <TD class=bg_01>申请人名称：</TD>
                                 <TD class=bg_02>
                                     <INPUT id=appCnName value=111111 size=40
-                                                       name=tmzcr.appCnName jQuery1461736730619="10" validatorIndex="9"
-                                                       validatorGroup="1" onceValided="true" lastshowclass="onError"
-                                                       lastshowmsg="不能为空且长度在2-60个汉字之间" validValueOld>
-                                    <SPAN               style="COLOR: #f00">*</SPAN>
+                                           name=tmzcr.appCnName jQuery1461736730619="10" validatorIndex="9"
+                                           validatorGroup="1" onceValided="true" lastshowclass="onError"
+                                           lastshowmsg="不能为空且长度在2-60个汉字之间" validValueOld>
+                                    <SPAN style="COLOR: #f00">*</SPAN>
                                 </TD>
                                 <TD class=bg_02>
-                                    <DIV style="WIDTH: 250px" id=appCnNameTip                   class=onCorrect>申请人名称应与能够证明其身份的有效证件保持一致                  </DIV>
+                                    <DIV style="WIDTH: 250px" id=appCnNameTip class=onCorrect>申请人名称应与能够证明其身份的有效证件保持一致
+                                    </DIV>
                                 </TD>
                             </TR>
                             <TR style="DISPLAY: none" id=appEnNameTr>
                                 <TD class=bg_01>申请人名称(英文)：</TD>
                                 <TD class=bg_02>
                                     <INPUT id=appEnName value="do not fill in" size=40
-                                                       name=tmzcr.appEnName jQuery1461736730619="11" validatorIndex="11"
-                                                       validatorGroup="1" onceValided="true">
-                                    <SPAN                         style="DISPLAY: none; COLOR: #f00" id=enNamespan>*</SPAN></TD>
+                                           name=tmzcr.appEnName jQuery1461736730619="11" validatorIndex="11"
+                                           validatorGroup="1" onceValided="true">
+                                    <SPAN style="DISPLAY: none; COLOR: #f00" id=enNamespan>*</SPAN></TD>
                                 <TD class=bg_02>
                                     <DIV style="WIDTH: 250px" id=appEnNameTip
                                          class=onCorrect>申请人名称应与能够证明其身份的有效证件保持一致
@@ -2274,7 +2279,7 @@
                                         onceValided="true"> <SPAN style="COLOR: #f00">*</SPAN> <BR><INPUT
                                         id=fileZtEnId size=40 type=hidden name=fileZtEnId></TD>
                                 <TD class=bg_02>
-                                    <DIV style="WIDTH: 250px" id=fileZtEnNameTip             class=onCorrect>请上传主体资格证明原文件(外文)                </DIV>
+                                    <DIV style="WIDTH: 250px" id=fileZtEnNameTip class=onCorrect>请上传主体资格证明原文件(外文)</DIV>
                                 </TD>
                             </TR>
                             <TR id=appRegionalismIdTr>
@@ -3183,11 +3188,11 @@
                                 <TD class=bg_01>申请人地址：</TD>
                                 <TD class=bg_02>
                                     <INPUT id=appCnAddr value=sfsdfsdf size=40
-                                                       name=tmzcr.appCnAddr jQuery1461736730619="22" validatorIndex="21"
-                                                       validatorGroup="1" onceValided="true" lastshowclass="onError"
-                                                       lastshowmsg="不能为空且长度在1-120个字符之间" validValueOld>
+                                           name=tmzcr.appCnAddr jQuery1461736730619="22" validatorIndex="21"
+                                           validatorGroup="1" onceValided="true" lastshowclass="onError"
+                                           lastshowmsg="不能为空且长度在1-120个字符之间" validValueOld>
                                     <SPAN
-                                        style="COLOR: #f00">*</SPAN> <BR><A
+                                            style="COLOR: #f00">*</SPAN> <BR><A
                                         href="javascript:popUpWindow('/tmoas/tmoas/WSSQ/SBZCSQ/help.html#a14')">【更多说明】
                                 </A>
                                 </TD>
@@ -3200,8 +3205,8 @@
                                 <TD class=bg_01>申请人地址(英文)：</TD>
                                 <TD class=bg_02>
                                     <INPUT id=appEnAddr value="do not fill in" size=40
-                                                       name=tmzcr.appEnAddr jQuery1461736730619="23" validatorIndex="22"
-                                                       validatorGroup="1" onceValided="true"><SPAN
+                                           name=tmzcr.appEnAddr jQuery1461736730619="23" validatorIndex="22"
+                                           validatorGroup="1" onceValided="true"><SPAN
                                         style="DISPLAY: none; COLOR: #f00" id=enAddrspan>*</SPAN></TD>
                                 <TD class=bg_02>
                                     <DIV style="WIDTH: 250px" id=appEnAddrTip
@@ -3895,10 +3900,12 @@
                                                         style="BORDER-BOTTOM: #add5e4 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #82bad1 1px solid; PADDING-BOTTOM: 5px; LINE-HEIGHT: 150%; BACKGROUND-COLOR: #eef8fc; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; HEIGHT: 26px; FONT-SIZE: 12px; VERTICAL-ALIGN: middle; FONT-WEIGHT: normal; BORDER-RIGHT: #add5e4 1px solid; PADDING-TOP: 5px"
                                                         class=td_num width="10%">
                                                     <INPUT
-                                                        style="BORDER-BOTTOM: 0px; TEXT-ALIGN: center; BORDER-LEFT: 0px; WIDTH: 60px; BORDER-TOP: 0px; BORDER-RIGHT: 0px"
-                                                        id=tn_1 value=1 readOnly name=td_num_tn>
-                                                    <INPUT      style="DISPLAY: none" value=286CF0A5386A0000E0537F0000010000  CHECKED type=checkbox name=valueGoods>
-                                                    <INPUT     style="DISPLAY: none" value=薄荷酒 CHECKED type=checkbox   name=valueNameGoods>
+                                                            style="BORDER-BOTTOM: 0px; TEXT-ALIGN: center; BORDER-LEFT: 0px; WIDTH: 60px; BORDER-TOP: 0px; BORDER-RIGHT: 0px"
+                                                            id=tn_1 value=1 readOnly name=td_num_tn>
+                                                    <INPUT style="DISPLAY: none" value=286CF0A5386A0000E0537F0000010000
+                                                           CHECKED type=checkbox name=valueGoods>
+                                                    <INPUT style="DISPLAY: none" value=薄荷酒 CHECKED type=checkbox
+                                                           name=valueNameGoods>
                                                 </TD>
                                                 <TD class=c4 width="10%">33</TD>
                                                 <TD class=c4 width="15%">3301</TD>
@@ -3906,14 +3913,16 @@
                                                 <TD class=c4 width="20%">薄荷酒</TD>
                                                 <TD class=c4 width="10%">
                                                     <INPUT onclick=attremove(this) value=删除
-                                                                                type=button></TD>
+                                                           type=button></TD>
                                                 <TD class=c4_1 width="20%">
                                                     <INPUT
-                                                        onclick="prevMoveTrCommand(this,'tablegoods','td_num');" value=↑
-                                                        type=button name=btn1>
+                                                            onclick="prevMoveTrCommand(this,'tablegoods','td_num');"
+                                                            value=↑
+                                                            type=button name=btn1>
                                                     <INPUT
-                                                        onclick="nextMoveTrCommand(this,'tablegoods','td_num');" value=↓
-                                                        type=button name=btn2></TD>
+                                                            onclick="nextMoveTrCommand(this,'tablegoods','td_num');"
+                                                            value=↓
+                                                            type=button name=btn2></TD>
                                             </TR>
                                             </TBODY>
                                         </TABLE>
@@ -3923,16 +3932,23 @@
                                             style="BORDER-BOTTOM: white 1px solid; TEXT-ALIGN: center; BORDER-LEFT: white 1px solid; WIDTH: 100px; COLOR: green; FONT-SIZE: 20px; BORDER-TOP: white 1px solid; BORDER-RIGHT: white 1px solid; heght: 30px"
                                             id=numbergoods value=1 readOnly name=numbergoods>件商品
                                     <INPUT
-                                        style="BORDER-BOTTOM: white 1px solid; TEXT-ALIGN: center; BORDER-LEFT: white 1px solid; WIDTH: 100px; COLOR: green; FONT-SIZE: 20px; BORDER-TOP: white 1px solid; BORDER-RIGHT: white 1px solid; heght: 30px"
-                                        id=totalnumbergoods value=0 readOnly type=hidden               name=totalnumbergoods>
-                                    <INPUT id=goodarray   value=;286CF0A5386A0000E0537F0000010000       type=hidden name=goodarray>
+                                            style="BORDER-BOTTOM: white 1px solid; TEXT-ALIGN: center; BORDER-LEFT: white 1px solid; WIDTH: 100px; COLOR: green; FONT-SIZE: 20px; BORDER-TOP: white 1px solid; BORDER-RIGHT: white 1px solid; heght: 30px"
+                                            id=totalnumbergoods value=0 readOnly type=hidden name=totalnumbergoods>
+                                    <INPUT id=goodarray value=;286CF0A5386A0000E0537F0000010000 type=hidden
+                                           name=goodarray>
                                     <INPUT id=goodNamearray value=≈薄荷酒 type=hidden name=goodNamearray>
-                                    <INPUT id=goodhtml     value="<table id='tablegoods' width='100%' border='0' align='center' cellpadding='0' cellspacing='0' class='chart_list'><tr><th width='10%' class='a1'>序号</th><th width='10%' class='a1'>类别</th><th width='15%' class='a1'>类似群</th><th width='15%' class='a1'>商品编码</th><th width='20%' class='a1'>商品名称</th><th width='10%' class='a1'><input type='button' value='删除全部' onclick='removeAll()'/></th><th width='20%' class='a1'>上下操作</th></tr><tr><td width='10%' style='height:26px;text-align: center ;vertical-align:middle;&#9;font-size: 12px;padding:5px;line-height:150%;font-weight:normal;background-color:#EEF8FC;border-left:1 solid #82BAD1;border-bottom:1 solid #ADD5E4;border-right:1 solid #ADD5E4;' class='td_num'><input type='text' id='tn_1' name='td_num_tn' readonly='true' style='border:0px;width:60px;text-align:center;' value='1' /><input type='checkbox' style='display:none;' name='valueGoods' checked='checked'   value='286CF0A5386A0000E0537F0000010000'/><input type='checkbox' style='display:none;' name='valueNameGoods' checked='checked'   value='薄荷酒'/></td><td width='10%' class='c4'>33</td><td width='15%' class='c4'>3301</td><td width='15%' class='c4'>330001</td><td width='20%' class='c4'>薄荷酒</td><td width='10%' class='c4'><input type='button'  value='删除' onclick='attremove(this)'/></td><td width='20%' class='c4_1'><input type='button' name='btn1' value='↑' onclick=prevMoveTrCommand(this,'tablegoods','td_num'); /><input type='button' name='btn2' value='↓' onclick=nextMoveTrCommand(this,'tablegoods','td_num'); /></td></tr></tbody></table>"
+                                    <INPUT id=goodhtml
+                                           value="<table id='tablegoods' width='100%' border='0' align='center' cellpadding='0' cellspacing='0' class='chart_list'><tr><th width='10%' class='a1'>序号</th>
+                                           <th width='10%' class='a1'>类别</th><th width='15%' class='a1'>类似群</th>
+                                           <th width='15%' class='a1'>商品编码</th><th width='20%' class='a1'>商品名称</th>
+                                           <th width='10%' class='a1'><input type='button' value='删除全部' onclick='removeAll()'/></th>
+                                           <th width='20%' class='a1'>上下操作</th></tr>
+                                           <tr><td width='10%' style='height:26px;text-align: center ;vertical-align:middle;&#9;font-size: 12px;padding:5px;line-height:150%;font-weight:normal;background-color:#EEF8FC;border-left:1 solid #82BAD1;border-bottom:1 solid #ADD5E4;border-right:1 solid #ADD5E4;' class='td_num'><input type='text' id='tn_1' name='td_num_tn' readonly='true' style='border:0px;width:60px;text-align:center;' value='1' /><input type='checkbox' style='display:none;' name='valueGoods' checked='checked'   value='286CF0A5386A0000E0537F0000010000'/><input type='checkbox' style='display:none;' name='valueNameGoods' checked='checked'   value='薄荷酒'/></td><td width='10%' class='c4'>33</td><td width='15%' class='c4'>3301</td><td width='15%' class='c4'>330001</td><td width='20%' class='c4'>薄荷酒</td><td width='10%' class='c4'><input type='button'  value='删除' onclick='attremove(this)'/></td><td width='20%' class='c4_1'><input type='button' name='btn1' value='↑' onclick=prevMoveTrCommand(this,'tablegoods','td_num'); /><input type='button' name='btn2' value='↓' onclick=nextMoveTrCommand(this,'tablegoods','td_num'); /></td></tr></tbody></table>"
                                            type=hidden name=goodhtml>
                                     <INPUT id=isgoods value=yes type=hidden
-                                                                             name=isgoods jQuery1461736730619="51"
-                                                                             validatorIndex="45"
-                                                                             validatorGroup="1" onceValided="true">
+                                           name=isgoods jQuery1461736730619="51"
+                                           validatorIndex="45"
+                                           validatorGroup="1" onceValided="true">
                                     <DIV style="WIDTH: 250px" id=isgoodsTip
                                          class=onCorrect>请按要求填写
                                     </DIV>

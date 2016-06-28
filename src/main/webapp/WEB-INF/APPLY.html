@@ -1,0 +1,1178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><META content="IE=5.0000" http-equiv="X-UA-Compatible">
+    <BASE href="http://sbsq.saic.gov.cn:9080/tmoas/">
+    <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <META content=no-cache http-equiv=pragma>
+    <META content=no-cache http-equiv=cache-control>
+    <META content=0 http-equiv=expires>
+    <META content=keyword1,keyword2,keyword3 http-equiv=keywords>
+    <META content="This is my page" http-equiv=description><LINK rel=stylesheet
+                                                                 type=text/css href="css/newpublic2.css">
+    <SCRIPT type=text/javascript src="/tmoas/style/js/jquery-1.4.4.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript src="/tmoas/style/js/wssq/winProgress.js"></SCRIPT>
+
+    <SCRIPT type=text/javascript
+            src="/tmoas/style/My97DatePicker/WdatePicker.js"></SCRIPT>
+    <LINK rel=stylesheet type=text/css
+          href="/tmoas/style/My97DatePicker/skin/WdatePicker.css">
+    <SCRIPT type=text/javascript>
+        function doreset() {
+            $("#date1").val('');
+            $("#date2").val('');
+            $("#appNum").val('');
+            $("#appName").val('');
+            $("#wsType").val('-1');
+            var uaa=document.getElementsByName("wd.flag");
+            for(var i=0;i<uaa.length;i++){
+                if(uaa[i].checked==true){
+                    uaa[i].checked=false;
+                }
+            }
+            document.getElementById("or1").checked=false;
+            document.getElementById("or2").checked=false;
+        }
+
+
+
+        function dodelete(id,tablename){
+            $.post("/tmoas/isApp_isWorkTime.xhtml",function (data){
+                if("pass"==data || "overNum"==data ){
+                    if(confirm('您确定要删除此申请吗？删除之后将无法恢复')){
+                        var url='';
+                        if(tablename=='TTmoasAppTmzcAppform'){
+                            url='upsbzc_deleteSbzc.xhtml';
+                        }else if(tablename=='TTmoasAppBhfsAppform'){
+                            url='wswdsq_deleteBhfs.xhtml';
+                        }else{
+                            url='wswdsq_deleteWd.xhtml';
+                        }
+                        Loading('正在删除.....请稍候......', 'style/js/wssq/', 200, 300);
+                        $.post("/tmoas/"+url+"?appid="+id+"&tablename="+tablename+"&isValid=shanchu",function(data){
+                            if(data=="yes"){
+                                document.getElementById("but1").onclick();
+                                clearint()
+                                alert('操作成功');
+                            }else{
+                                clearint()
+                                alert('操作失败');
+                            }
+                        })
+                    }
+                }
+                else if("noWorkTime"==data){
+                    alert('业务操作只能在工作时间内进行,工作时间是8:00-16:30');
+                }
+                else if("noUser"==data){
+                    window.parent.frames.location = "/tmoas/login.jsp";
+                }else if("validUser"==data){
+                    alert('当前用户已被冻结,不能进行网上申请');
+                }else if("AgentDj"==data){
+                    alert('当前代理机构或事务所已被冻结，将不能进行业务申请，但仍可查询');
+                }else if("agentZx"==data){
+                    alert('当前代理机构或事务所已注销，将不能进行业务申请，但仍可查询');
+                }else if("agentQf"==data){
+                    alert('当前代理机构或事务所已欠费，将不能进行业务申请，但仍可查询');
+                }else if("agentNopass"==data){
+                    alert('当前代理机构或事务所不能进行业务申请，但仍可查询');
+                }else{
+
+                }
+            })
+
+        }
+
+        var popUpWin=0;
+        function popUpWindow(URLStr)
+        {
+            if(popUpWin)
+            {
+                if(!popUpWin.closed) popUpWin.close();
+            }
+            popUpWin = open(URLStr, 'popUpWin', 'resizable=yes,scrollbars=yes,width=550,height=500,left=200,top=100');
+        }
+
+        var popUpWin2=0;
+        function popUpWindowUpdate(URLStr)
+        {
+            $.post("/tmoas/isApp_isWorkTime.xhtml",function (data){
+                if("pass"==data || "overNum"==data ){
+                    if(popUpWin2)
+                    {
+                        if(!popUpWin2.closed) popUpWin2.close();
+                    }
+                    popUpWin2 = open(URLStr, 'popUpWin2', 'resizable=no,scrollbars=yes,width=800,height=800,left=250,top=50');
+                }
+                else if("noWorkTime"==data){
+                    alert('业务操作只能在工作时间内进行,工作时间是8:00-16:30');
+                }
+                else if("noUser"==data){
+                    window.parent.frames.location = "/tmoas/login.jsp";
+                }else if("validUser"==data){
+                    alert('当前用户已被冻结,不能进行网上申请');
+                }else if("AgentDj"==data){
+                    alert('当前代理机构或事务所已被冻结，将不能进行业务申请，但仍可查询');
+                }else if("agentZx"==data){
+                    alert('当前代理机构或事务所已注销，将不能进行业务申请，但仍可查询');
+                }else if("agentQf"==data){
+                    alert('当前代理机构或事务所已欠费，将不能进行业务申请，但仍可查询');
+                }else if("agentNopass"==data){
+                    alert('当前代理机构或事务所不能进行业务申请，但仍可查询');
+                }else{
+
+                }
+            })
+
+        }
+
+        function doload(aid,tname){
+            location.href="/tmoas/wswdsq_loadWd.xhtml?appid="+aid+"&tablename="+tname;
+        }
+        $(function(){
+            window.parent.document.documentElement.scrollTop=0;
+            window.parent.document.body.scrollTop=0;
+        })
+
+        var popUpWinQm=0;
+        function popUpWindowQm(URLStr)
+        {
+            if(popUpWinQm)
+            {
+                if(!popUpWinQm.closed) popUpWinQm.close();
+            }
+            popUpWinQm = open(URLStr, 'popUpWinQm', 'resizable=yes,scrollbars=yes,width=850,height=700,left=200,top=100');
+        }
+
+
+        //没选时，选中调用这个选中方法
+        function getChecked(checkIs)
+        {
+            if(checkIs.checked==true){
+                $.post("/tmoas/wswdsq_selected.xhtml?flagd="+checkIs.value,function(data){
+                });
+            }
+            if(checkIs.checked==false){
+                $.post("/tmoas/wswdsq_remove.xhtml?flagd="+checkIs.value,function(data){
+                });
+            }
+        }
+
+
+        function doChooseAll(e){
+            var flag = e.checked;
+            var arr = document.getElementsByName("flag");
+            var  str='';
+            for(var i = 0; i < arr.length; i++){
+                if(flag == true){
+                    if(arr[i].checked == false){
+                        arr[i].checked = true;
+                        str=str+arr[i].value+';';
+                        $.post("/tmoas/wswdsq_checkAll.xhtml?flags="+str,function(data){
+                        });
+
+                    }
+                }else{
+                    if(arr[i].checked == true){
+                        arr[i].checked = false;
+                        str=str+arr[i].value+';';
+                        $.post("/tmoas/wswdsq_cancelAll.xhtml?flags="+str,function(data){
+                        });
+
+                    }
+                }
+            }
+        }
+        //每次判断是不是全部选中,全部选中则总按钮选中
+        $(function (){
+            var num=0
+            var arr = document.getElementsByName("flag");
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i].checked== true){
+                    num++;
+                }
+            }
+            if(num== arr.length && num!=0){
+                document.getElementById("chooseall").checked=true;
+            }
+        })
+
+        function load_Tmlist(){
+            Loading('正在下载.....请稍候......', 'style/js/wssq/', 200, 300);
+            $.post("/tmoas/wswdsq_getSList.xhtml",function(data){
+                if(data.indexOf('true')>-1){
+                    var len=parseInt(data.split('@')[1]);
+                    var timelen=1000+len*850;
+                    location.href="/tmoas/wswdsq_loadTmList.xhtml";
+                    var arr = document.getElementsByName("flag");
+                    for(var i = 0; i < arr.length; i++){
+                        if(arr[i].checked == true){
+                            arr[i].checked = false;
+                        }
+                    }
+                    document.getElementById("chooseall").checked=false;
+                    //执行消除div进度条的方法
+                    window.setTimeout("clearint()",timelen);
+                }
+                else if(data=="0"){
+                    clearint();
+                    alert("请选择一个商标");
+                }
+                else if(data=="overLength"){
+                    clearint();
+                    alert("一次最多只能查出50个商标信息");
+                }else {
+                    clearint();
+                    alert("下载出错");
+                }
+            });
+
+        }
+
+        function do_submit(){
+            Loading('正在查询.....请稍候......', 'style/js/wssq/', 200, 300);
+            pageSubmit();
+        }
+    </SCRIPT>
+</HEAD>
+<BODY onload="">
+<TABLE class=login_zylj border=0 cellSpacing=0 cellPadding=0>
+    <TBODY>
+    <TR>
+        <TD class=background_01>&nbsp;<INPUT type=hidden> </TD>
+        <TD class=background_02>
+            <TABLE border=0 cellSpacing=0 cellPadding=0 width=541 height=42>
+                <TBODY>
+                <TR>
+                    <TD width=36 align=middle><IMG src="images/login_icon_01.png"
+                                                   width=11 height=11> </TD>
+                    <TD width=605><SPAN class=layer_05>我的申请
+    </SPAN></TD></TR></TBODY></TABLE></TD>
+        <TD class=background_03>&nbsp; </TD></TR></TBODY></TABLE>
+<FORM id=form1 method=post name=form1
+      action="/tmoas&#10;/wswdsq_getWdsqCondition.xhtml">
+    <TABLE class=import_rs border=0 cellSpacing=0 cellPadding=0 width="100%"
+           align=center>
+        <TBODY>
+        <TR>
+            <TD class=layer_06>
+                <TABLE class=import_tb border=0 cellSpacing=0 cellPadding=0
+                       width="100%"><TBODY>
+                <TR>
+                    <TD class=bg_01 width="30%">申请时间从： </TD>
+                    <TD class=bg_02 width="70%"><INPUT id=date1 class=Wdate
+                                                       onclick="WdatePicker({maxDate:'%y-%M-%d',readOnly:true})"
+                                                       value=2016-6-14 size=40 name=wd.date1> </TD></TR>
+                <TR>
+                    <TD class=bg_01>到： </TD>
+                    <TD class=bg_02><INPUT id=date2 class=Wdate
+                                           onclick=WdatePicker({readOnly:true}) value=2016-6-14 size=40
+                                           name=wd.date2> </TD></TR>
+                <TR>
+                    <TD class=bg_01>申请类型： </TD>
+                    <TD class=bg_02><SELECT id=wsType class=s02 size=1 name=wd.wsType>
+                        <OPTION selected value=-1>－－请选择申请类型－－</OPTION> <OPTION
+                            value=注册申请>注册申请</OPTION> <OPTION
+                            value=商标驳回复审申请>商标驳回复审申请</OPTION></SELECT> </TD></TR>
+                <TR>
+                    <TD class=bg_01 width="30%">申请号： </TD>
+                    <TD class=bg_02 width="70%"><INPUT id=appNum size=40 name=wd.appNum>
+                    </TD></TR>
+                <TR>
+                    <TD class=bg_01 width="30%">申请人名称： </TD>
+                    <TD class=bg_02 width="70%"><INPUT id=appName size=40
+                                                       name=wd.appName>&nbsp;&nbsp; </TD></TR>
+                <TR>
+                    <TD class=bg_01 width="22%" align=right>申请时间排序： </TD>
+                    <TD class=bg_02 width="30%"><INPUT id=or1 class=select1 value=asc
+                                                       type=radio name=wd.dateOrder> 升序 <INPUT id=or2 class=select1
+                                                                                               value=desc type=radio name=wd.dateOrder> 降序 </TD></TR>
+                <TR>
+                    <TD class=bg_04 height=50 colSpan=2 align=middle><LABEL><INPUT id=but1 class=button1 onclick=do_submit() value=查询 type=button name=but1>
+                    </LABEL><LABEL><INPUT id=button class=button1 onclick=doreset(); value=重置 type=button name=button>
+                    </LABEL><LABEL><INPUT class=button1 onclick=load_Tmlist() value=批量下载 type=button>
+                    </LABEL>
+                        <DIV id=loading_div></DIV></TD></TR>
+                <TR>
+                    <TD class=bg_04 height=50 colSpan=2 align=middle><FONT
+                            color=gray>查询结果为:</FONT> <FONT color=red size=4>83</FONT>
+                    </TD></TR></TBODY></TABLE>
+                <TABLE class=chart_list border=0 cellSpacing=0 cellPadding=0 width="100%"
+                       align=center>
+                    <TBODY>
+                    <TR>
+                        <TH class=a1 width="5%"><INPUT id=chooseall
+                                                       onclick=doChooseAll(this) type=checkbox> </TH>
+                        <TH class=a1 width="7%">序号 </TH>
+                        <TH class=a1 width="30%">申请人 </TH>
+                        <TH class=a1 width="15%">申请日期 </TH>
+                        <TH class=a1 width="12%">申请号 </TH>
+                        <TH class=a1 width="13%">代理文号 </TH>
+                        <TH class=a1_1 width="18%">操作 </TH></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d15545554d01554ca3ec641cf5
+                                              onclick=getChecked(this) value=2c9088d15545554d01554ca3ec641cf5
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>1 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d15545554d01554ca3ec641cf5&amp;tablename=TTmoasAppTmzcAppform')">北京一丢丢科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20293679 </TD>
+                        <TD class=c3>tr1464749174296 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d15545554d01554ca3ec641cf5&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d15545554d01554ca3ec641cf5&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d25545557f01554c9cb2fa1c6c
+                                              onclick=getChecked(this) value=2c9088d25545557f01554c9cb2fa1c6c
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>2 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d25545557f01554c9cb2fa1c6c&amp;tablename=TTmoasAppTmzcAppform')">北京一丢丢科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20293517 </TD>
+                        <TD class=c4>tr1464749174295 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d25545557f01554c9cb2fa1c6c&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d25545557f01554c9cb2fa1c6c&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d25545557f01554cd119e171a1
+                                              onclick=getChecked(this) value=2c9088d25545557f01554cd119e171a1
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>3 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d25545557f01554cd119e171a1&amp;tablename=TTmoasAppTmzcAppform')">成都律府信息科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20295432 </TD>
+                        <TD class=c3>tr1464328300003 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d25545557f01554cd119e171a1&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d25545557f01554cd119e171a1&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d25545557f01554cd3c21075fd
+                                              onclick=getChecked(this) value=2c9088d25545557f01554cd3c21075fd
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>4 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d25545557f01554cd3c21075fd&amp;tablename=TTmoasAppTmzcAppform')">上海丽盾环境工程有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20295801 </TD>
+                        <TD class=c4>tr1465379688360 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d25545557f01554cd3c21075fd&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d25545557f01554cd3c21075fd&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d25545557f01554cd50f9b77c3
+                                              onclick=getChecked(this) value=2c9088d25545557f01554cd50f9b77c3
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>5 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d25545557f01554cd50f9b77c3&amp;tablename=TTmoasAppTmzcAppform')">上海丽盾环境工程有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20295873 </TD>
+                        <TD class=c3>tr1465379688361 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d25545557f01554cd50f9b77c3&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d25545557f01554cd50f9b77c3&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d25545557f01554cd585f1789b
+                                              onclick=getChecked(this) value=2c9088d25545557f01554cd585f1789b
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>6 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d25545557f01554cd585f1789b&amp;tablename=TTmoasAppTmzcAppform')">上海丽盾环境工程有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20295554 </TD>
+                        <TD class=c4>tr1465379688362 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d25545557f01554cd585f1789b&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d25545557f01554cd585f1789b&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554c9ad8fe5e1b
+                                              onclick=getChecked(this) value=2c9088d35545568b01554c9ad8fe5e1b
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>7 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554c9ad8fe5e1b&amp;tablename=TTmoasAppTmzcAppform')">合肥诺如思广告有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20293167 </TD>
+                        <TD class=c3>tr1465701325373 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554c9ad8fe5e1b&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554c9ad8fe5e1b&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554cbb7e390310
+                                              onclick=getChecked(this) value=2c9088d35545568b01554cbb7e390310
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>8 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554cbb7e390310&amp;tablename=TTmoasAppTmzcAppform')">上海途顺网络科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20294791 </TD>
+                        <TD class=c4>tr1463986380236 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554cbb7e390310&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554cbb7e390310&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554cca6ea3135e
+                                              onclick=getChecked(this) value=2c9088d35545568b01554cca6ea3135e
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>9 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554cca6ea3135e&amp;tablename=TTmoasAppTmzcAppform')">上海丽盾环境工程有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20295440 </TD>
+                        <TD class=c3>tr1465379688363 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554cca6ea3135e&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554cca6ea3135e&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554ccaeb931403
+                                              onclick=getChecked(this) value=2c9088d35545568b01554ccaeb931403
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>10 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554ccaeb931403&amp;tablename=TTmoasAppTmzcAppform')">上海丽盾环境工程有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20295462 </TD>
+                        <TD class=c4>tr1465379688365 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554ccaeb931403&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554ccaeb931403&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554ccbf16b153e
+                                              onclick=getChecked(this) value=2c9088d35545568b01554ccbf16b153e
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>11 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554ccbf16b153e&amp;tablename=TTmoasAppTmzcAppform')">上海途顺网络科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20295488 </TD>
+                        <TD class=c3>tr1463986380239 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554ccbf16b153e&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554ccbf16b153e&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554ccc4c7615c9
+                                              onclick=getChecked(this) value=2c9088d35545568b01554ccc4c7615c9
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>12 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554ccc4c7615c9&amp;tablename=TTmoasAppTmzcAppform')">广州动向医疗科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20295171 </TD>
+                        <TD class=c4>tr1465204710302 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554ccc4c7615c9&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554ccc4c7615c9&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554ccc9f5e1669
+                                              onclick=getChecked(this) value=2c9088d35545568b01554ccc9f5e1669
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>13 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554ccc9f5e1669&amp;tablename=TTmoasAppTmzcAppform')">广州动向医疗科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20295250 </TD>
+                        <TD class=c3>tr1465204710305 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554ccc9f5e1669&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554ccc9f5e1669&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554ccf167218d3
+                                              onclick=getChecked(this) value=2c9088d35545568b01554ccf167218d3
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>14 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554ccf167218d3&amp;tablename=TTmoasAppTmzcAppform')">上海途顺网络科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20295527 </TD>
+                        <TD class=c4>tr1463986380237 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554ccf167218d3&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554ccf167218d3&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554cd1a5721c7e
+                                              onclick=getChecked(this) value=2c9088d35545568b01554cd1a5721c7e
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>15 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554cd1a5721c7e&amp;tablename=TTmoasAppTmzcAppform')">上海途顺网络科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20295729 </TD>
+                        <TD class=c3>tr1463986380241 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554cd1a5721c7e&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554cd1a5721c7e&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d1575016ed3
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d1575016ed3
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>16 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d1575016ed3&amp;tablename=TTmoasAppTmzcAppform')">合肥诺如思广告有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20297926 </TD>
+                        <TD class=c4>tr1465701325375 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d1575016ed3&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d1575016ed3&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d5b2cd41224
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d5b2cd41224
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>17 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d5b2cd41224&amp;tablename=TTmoasAppTmzcAppform')">北京云火影业有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20298857 </TD>
+                        <TD class=c3>tr1465271858127 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d5b2cd41224&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d5b2cd41224&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d5e6f25140e
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d5e6f25140e
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>18 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d5e6f25140e&amp;tablename=TTmoasAppTmzcAppform')">北京云火影业有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20299126 </TD>
+                        <TD class=c4>tr1465271858129 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d5e6f25140e&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d5e6f25140e&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d6241e9161c
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d6241e9161c
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>19 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d6241e9161c&amp;tablename=TTmoasAppTmzcAppform')">北京云火影业有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20299109 </TD>
+                        <TD class=c3>tr1465271858130 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d6241e9161c&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d6241e9161c&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d6450ff1779
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d6450ff1779
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>20 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d6450ff1779&amp;tablename=TTmoasAppTmzcAppform')">北京云火影业有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20299006 </TD>
+                        <TD class=c4>tr1465271858132 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d6450ff1779&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d6450ff1779&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d663bd818c2
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d663bd818c2
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>21 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d663bd818c2&amp;tablename=TTmoasAppTmzcAppform')">北京云火影业有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20299183 </TD>
+                        <TD class=c3>tr1465271858133 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d663bd818c2&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d663bd818c2&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d6c356a1d41
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d6c356a1d41
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>22 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d6c356a1d41&amp;tablename=TTmoasAppTmzcAppform')">广州市爱敬化妆品有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20299198 </TD>
+                        <TD class=c4>tr1465703084711 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d6c356a1d41&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d6c356a1d41&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d6e9ebc1efd
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d6e9ebc1efd
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>23 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d6e9ebc1efd&amp;tablename=TTmoasAppTmzcAppform')">广州市爱敬化妆品有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20299251 </TD>
+                        <TD class=c3>tr1465703084713 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d6e9ebc1efd&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d6e9ebc1efd&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d7601c125b1
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d7601c125b1
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>24 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d7601c125b1&amp;tablename=TTmoasAppTmzcAppform')">河南翔燕广告有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20299600 </TD>
+                        <TD class=c4>tr1465781888355 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d7601c125b1&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d7601c125b1&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d82cad734bd
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d82cad734bd
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>25 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d82cad734bd&amp;tablename=TTmoasAppTmzcAppform')">河南翔燕广告有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20299853 </TD>
+                        <TD class=c3>tr1465781888356 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d82cad734bd&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d82cad734bd&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d89407e3c3d
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d89407e3c3d
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>26 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d89407e3c3d&amp;tablename=TTmoasAppTmzcAppform')">南京赛菲尔环保科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20300209 </TD>
+                        <TD class=c4>tr1465357238347 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d89407e3c3d&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d89407e3c3d&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d8ba3f7407b
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d8ba3f7407b
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>27 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d8ba3f7407b&amp;tablename=TTmoasAppTmzcAppform')">南京赛菲尔环保科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20300417 </TD>
+                        <TD class=c3>tr1465357238350 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d8ba3f7407b&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d8ba3f7407b&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d9107154883
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d9107154883
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>28 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d9107154883&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20300510 </TD>
+                        <TD class=c4>tr1465277695015 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d9107154883&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d9107154883&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d93e5d64ced
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d93e5d64ced
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>29 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d93e5d64ced&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20300621 </TD>
+                        <TD class=c3>tr1465277695017 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d93e5d64ced&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d93e5d64ced&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d95f0f34f4d
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d95f0f34f4d
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>30 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d95f0f34f4d&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20300775 </TD>
+                        <TD class=c4>tr1465277695018 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d95f0f34f4d&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d95f0f34f4d&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d981663526c
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d981663526c
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>31 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d981663526c&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20300619 </TD>
+                        <TD class=c3>tr1465277695019 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d981663526c&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d981663526c&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d9a56795459
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d9a56795459
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>32 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d9a56795459&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20300703 </TD>
+                        <TD class=c4>tr1465277695020 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d9a56795459&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d9a56795459&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554d9cff64571c
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d9cff64571c
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>33 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d9cff64571c&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20300973 </TD>
+                        <TD class=c3>tr1465277695021 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d9cff64571c&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d9cff64571c&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554d9f9d8c5b75
+                                              onclick=getChecked(this) value=2c9088d35545568b01554d9f9d8c5b75
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>34 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554d9f9d8c5b75&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20301086 </TD>
+                        <TD class=c4>tr1465277695022 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554d9f9d8c5b75&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554d9f9d8c5b75&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554da1630b5df2
+                                              onclick=getChecked(this) value=2c9088d35545568b01554da1630b5df2
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>35 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554da1630b5df2&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20300983 </TD>
+                        <TD class=c3>tr1465277695024 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554da1630b5df2&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554da1630b5df2&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554da3647d603a
+                                              onclick=getChecked(this) value=2c9088d35545568b01554da3647d603a
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>36 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554da3647d603a&amp;tablename=TTmoasAppTmzcAppform')">贾雄雄</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20301327 </TD>
+                        <TD class=c4>tr1465277695025 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554da3647d603a&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554da3647d603a&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554dab6251695d
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dab6251695d
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>37 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dab6251695d&amp;tablename=TTmoasAppTmzcAppform')">托斯佧纳（北京）餐饮管理有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20301381 </TD>
+                        <TD class=c3>tr1465355356331 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dab6251695d&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dab6251695d&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554dae84d66d22
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dae84d66d22
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>38 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dae84d66d22&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20301725 </TD>
+                        <TD class=c4>tr1465279464752 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dae84d66d22&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dae84d66d22&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554db4661974d5
+                                              onclick=getChecked(this) value=2c9088d35545568b01554db4661974d5
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>39 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554db4661974d5&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20301962 </TD>
+                        <TD class=c3>tr1465279464753 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554db4661974d5&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554db4661974d5&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554db65bbd77b1
+                                              onclick=getChecked(this) value=2c9088d35545568b01554db65bbd77b1
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>40 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554db65bbd77b1&amp;tablename=TTmoasAppTmzcAppform')">武汉六合生物技术有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20301824 </TD>
+                        <TD class=c4>tr1465366517537 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554db65bbd77b1&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554db65bbd77b1&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554db943a27bd5
+                                              onclick=getChecked(this) value=2c9088d35545568b01554db943a27bd5
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>41 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554db943a27bd5&amp;tablename=TTmoasAppTmzcAppform')">武汉六合生物技术有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20301939 </TD>
+                        <TD class=c3>tr1465366517505 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554db943a27bd5&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554db943a27bd5&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554dba78057dbd
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dba78057dbd
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>42 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dba78057dbd&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20302132 </TD>
+                        <TD class=c4>tr1465279464756 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dba78057dbd&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dba78057dbd&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554dbcb3d30007
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dbcb3d30007
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>43 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dbcb3d30007&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20302286 </TD>
+                        <TD class=c3>tr1465279464754 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dbcb3d30007&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dbcb3d30007&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554dc30bf70724
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dc30bf70724
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>44 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dc30bf70724&amp;tablename=TTmoasAppTmzcAppform')">深圳市南山区爱上湘味厨房餐厅</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20302457 </TD>
+                        <TD class=c4>tr1461845434868 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dc30bf70724&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dc30bf70724&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554dc5043a0918
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dc5043a0918
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>45 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dc5043a0918&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20302387 </TD>
+                        <TD class=c3>tr1465279464757 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dc5043a0918&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dc5043a0918&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554dc7bcc60c6b
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dc7bcc60c6b
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>46 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dc7bcc60c6b&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20302523 </TD>
+                        <TD class=c4>tr1465279464758 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dc7bcc60c6b&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dc7bcc60c6b&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554dca4a5f0fd0
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dca4a5f0fd0
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>47 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dca4a5f0fd0&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20302707 </TD>
+                        <TD class=c3>tr1465279464760 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dca4a5f0fd0&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dca4a5f0fd0&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554dcdf3f015d2
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dcdf3f015d2
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>48 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dcdf3f015d2&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20302966 </TD>
+                        <TD class=c4>tr1465279464759 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dcdf3f015d2&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dcdf3f015d2&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c3_0><INPUT id=flag2c9088d35545568b01554dd35fb41dd0
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dd35fb41dd0
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c3>49 </TD>
+                        <TD class=c3><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dd35fb41dd0&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c3>2016年6月14日 </TD>
+                        <TD class=c3>20303177 </TD>
+                        <TD class=c3>tr1465279464764 </TD>
+                        <TD class=c3_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dd35fb41dd0&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dd35fb41dd0&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR>
+                    <TR>
+                        <TD class=c4_0><INPUT id=flag2c9088d35545568b01554dd495931fc6
+                                              onclick=getChecked(this) value=2c9088d35545568b01554dd495931fc6
+                                              type=checkbox name=flag> </TD>
+                        <TD class=c4>50 </TD>
+                        <TD class=c4><A
+                                href="javascript:popUpWindowQm('wswdsq_getDetailwd.xhtml?appid=2c9088d35545568b01554dd495931fc6&amp;tablename=TTmoasAppTmzcAppform')">情非得已（北京）科技有限公司</A>
+                        </TD>
+                        <TD class=c4>2016年6月14日 </TD>
+                        <TD class=c4>20303130 </TD>
+                        <TD class=c4>tr1465279464765 </TD>
+                        <TD class=c4_1><A
+                                href="/tmoas/wswdsq_loadWd.xhtml?appid=2c9088d35545568b01554dd495931fc6&amp;tablename=TTmoasAppTmzcAppform">下载|</A>
+                            <A
+                                    href="javascript:popUpWindowQm('/tmoas/upsbzc_getSbzcDetail.xhtml?appId=2c9088d35545568b01554dd495931fc6&amp;tableName=TTmoasAppTmzcAppform')">查看</A>
+                        </TD></TR></TBODY></TABLE>
+                <CENTER><BASE href="http://sbsq.saic.gov.cn:9080/tmoas/">
+                    <META content=no-cache http-equiv=pragma>
+                    <META content=no-cache http-equiv=cache-control>
+                    <META content=0 http-equiv=expires>
+                    <META content=keyword1,keyword2,keyword3 http-equiv=keywords>
+                    <META content="This is my page" http-equiv=description><LINK
+                            rel=stylesheet type=text/css href="css/newpublic2.css">
+                    <SCRIPT type=text/javascript
+                            src="/tmoas/style/js/wssq/winProgress.js"></SCRIPT>
+
+                    <SCRIPT type=text/javascript
+                            src="/tmoas/style/js/jquery-1.4.4.js"></SCRIPT>
+
+                    <SCRIPT type=text/javascript
+                            src="/tmoas/style/js/autocomplete/jquery.autocomplete2.js"></SCRIPT>
+                    <LINK rel=stylesheet type=text/css
+                          href="/tmoas/style/css/jquery.autocomplete2.css">
+                    <SCRIPT type=text/javascript>
+                        function dopage(flag){
+                            if(flag==1){
+                                document.getElementById("pagenum").value=1;
+                            }
+                            if(flag==2){
+                                document.getElementById("pagenum").value=parseInt(document.getElementById("pagenum").value)-1;
+                            }
+                            if(flag==3){
+                                document.getElementById("pagenum").value=parseInt(document.getElementById("pagenum").value)+1;
+                            }
+                            if(flag==4){
+                                document.getElementById("pagenum").value=$("#countpage").val();
+                            }
+                            //document.form1.action="/tmoas/"+url;
+                            if(document.getElementById("loading_div")!=undefined){
+                                Loading('正在查询.....请稍候......', 'style/js/wssq/', 200, 300);
+                            }
+                            document.getElementById("form1").submit();
+                        }
+                        function dochange(pagenum){
+                            //url="wswdsq_getWdsqCondition.xhtml";
+                            var page =document.getElementById("pagenum");
+                            if(page.value==pagenum){
+                                alert('本页');
+                                return;
+                            }
+                            page.value=pagenum;
+                            document.getElementById("form1").submit();
+                        }
+
+                        function pageSubmit(){
+                            $("#pagenum").val('1');
+                            document.form1.submit();
+                        }
+
+                    </SCRIPT>
+
+                    <CENTER><INPUT id=pagenum value=1 type=hidden name=pagenum></INPUT> <INPUT
+                            id=pagesize value=50 type=hidden name=pagesize></INPUT> <INPUT id=sum
+                                                                                           value=83 type=hidden name=sum></INPUT> <INPUT id=countpage value=2
+                                                                                                                                         type=hidden name=countpage></INPUT> 每页50条记录&nbsp;共 <FONT
+                            color=red>83</FONT>条记录&nbsp;&nbsp; 第<FONT
+                            color=red>1</FONT>页&nbsp;&nbsp;共2页&nbsp;&nbsp; <FONT color=gray>首页</FONT>
+                        &nbsp; <FONT color=gray>上页</FONT>&nbsp; <A
+                                href="javascript:dopage(3)">下页</A> &nbsp; <A
+                                href="javascript:dopage(4)">尾页</A>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;转到：
+                        <SELECT id=gopage onchange=javascript:dochange(this.value) name=gopage>
+                            <OPTION selected value=1>第1页</OPTION> <OPTION
+                                value=2>第2页</OPTION></SELECT>
+                    </CENTER></CENTER></TD></TR></TBODY></TABLE></FORM></BODY></HTML>
